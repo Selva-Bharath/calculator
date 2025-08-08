@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CALCULATOR</title>
+  <style>
+    body {
+      background-color: lightblue;
+      font-family: sans-serif;
+    }
+
+    .container {
+      width: 250px;
+      margin: 40px auto;
+      height: auto;
+      text-align: center;
+      border: 1px solid black;
+      border-radius: 10px;
+      padding: 20px;
+      backdrop-filter: blur(50px);
+      position: relative;
+      top: 100px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #input {
+      width: 100%;
+      height: 60px;
+      font-size: 24px;
+      margin-bottom: 15px;
+      text-align: right;
+      padding: 10px;
+      position: relative;
+      right: 10px;
+    }
+
+    .btn {
+      padding: 15px 20px;
+      margin: 5px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .btn:hover {
+      background-color: antiquewhite;
+    }
+
+    #clear {
+      background-color: yellowgreen;
+    }
+
+    #equal {
+      background-color: lightcoral;
+    }
+
+    @media only screen and (max-width: 480px) {
+      .container {
+        width: 90%;
+      }
+
+      .btn {
+        padding: 12px 16px;
+        font-size: 16px;
+      }
+
+      #input {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <input id="input" readonly />
+
+    <div>
+      <button value="1" class="btn" onclick="btn(event)">1</button>
+      <button value="2" class="btn" onclick="btn(event)">2</button>
+      <button value="3" class="btn" onclick="btn(event)">3</button>
+    </div>
+    <div>
+      <button value="4" class="btn" onclick="btn(event)">4</button>
+      <button value="5" class="btn" onclick="btn(event)">5</button>
+      <button value="6" class="btn" onclick="btn(event)">6</button>
+    </div>
+    <div>
+      <button value="7" class="btn" onclick="btn(event)">7</button>
+      <button value="8" class="btn" onclick="btn(event)">8</button>
+      <button value="9" class="btn" onclick="btn(event)">9</button>
+    </div>
+    <div>
+      <button value="0" class="btn" onclick="btn(event)">0</button>
+      <button value="+" class="btn" onclick="btn(event)">+</button>
+      <button value="-" class="btn" onclick="btn(event)">-</button>
+    </div>
+    <div>
+      <button value="*" class="btn" onclick="btn(event)">*</button>
+      <button value="/" class="btn" onclick="btn(event)">/</button>
+      <button id="equal" class="btn" onclick="cal()">=</button>
+    </div>
+    <div>
+      <button id="clear" class="btn" onclick="clcal()">CLR</button>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById("input");
+
+    function btn(event) {
+      input.value += event.target.value;
+    }
+
+    function cal() {
+      try {
+        input.value = eval(input.value);
+      } catch {
+        input.value = "Error";
+      }
+    }
+
+    function clcal() {
+      input.value = "";
+    }
+
+    document.addEventListener("keydown", function (event) {
+      const key = event.key;
+
+      if (/[\d+\-*/.]/.test(key)) {
+        input.value += key;
+      }
+
+      if (key === "Enter" || key === "=") {
+        event.preventDefault();
+        cal();
+      }
+
+      if (key === "Backspace") {
+        input.value = input.value.slice(0, -1);
+      }
+
+      if (key === "Escape") {
+        clcal();
+      }
+    });
+  </script>
+</body>
+</html>
